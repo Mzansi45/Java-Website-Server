@@ -36,8 +36,8 @@ This project is an ongoing development effort, and contributions are welcome. If
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE] file for details.
 
 ## Acknowledgments
 
-This project was inspired by the NanoHTTPD project. Thanks to the NanoHTTPD team for creating such a great lightweight webserver.
+This project was inspired by the [NanoHTTPD](https://github.com/NanoHttpd/nanohttpd) project. Thanks to [NanoHTTPD](https://github.com/NanoHttpd/nanohttpd) team for creating such a great lightweight webserver.
