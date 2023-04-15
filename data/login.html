@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            background-color: #413030;
+        }
+
+        .login-container {
+            margin: 10% auto;
+            width: 80%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.09);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 20px 20px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+        }
+
+        .form-div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #333;
+        }
+
+        input[type="submit"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #352c2c;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            height: 50px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #726a6a;
+        }
+
+        .links {
+            display: flex;
+            color: #fff;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .links a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        a:hover{
+            color: black;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .login-container {
+                margin: 20% auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+		<h1>Login</h1>
+		<div class ="form-div">
+			<label for="username">Username:</label>
+			<input type="text" id="username" name="username" required>
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password" required>
+            <div class="links"><a href="Register.html">Create Account</a> 
+                <a href="#">Forgot Password</a>
+            </div>
+            <br>
+            <br>
+			<input type="submit" value="Login" id="login">
+            <p id="error" style="color: #d3d381;">Incorrect Username/Password</p>
+		</div>
+	</div>
+
+    <script>
+        // Get a reference to the button element
+        const button = document.getElementById('login');
+
+        // Attach an event listener to the button
+        button.addEventListener('click', () => {
+        // Create a new XMLHttpRequest object
+        const xhr = new XMLHttpRequest();
+
+        // Set the request URL and method
+        xhr.open('POST', 'http://172.16.3.32:2023');
+
+        // Set the request header
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        // Set the callback function for when the request is complete
+        xhr.onload = () => {
+            // Check the status code
+            if (xhr.status === 200) {
+            // Success, do something with the response
+            //console.log(xhr.response);
+            var d = JSON.parse(xhr.response);
+                console.log(d.message);
+            console.log(d);
+            } else {
+            // Error, handle it appropriately
+            console.error(xhr.statusText);
+            }
+        };
+
+        const usernameInput = document.getElementById("username");
+        const Pass = document.getElementById("password");
+
+        // Create an object to represent the user data
+        const data = {
+            username: usernameInput.value,
+            password: Pass.value
+        };
+
+        // Send the request
+        xhr.send(JSON.stringify(data));
+        });
+
+    </script>
+    </body>
+</html>

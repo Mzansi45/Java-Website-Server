@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+    <style>
+        body {
+            background-color: #413030;
+        }
+
+        .register-container {
+            margin: 10% auto;
+            width: 400px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.09);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 20px 20px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="date"] {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #333;
+        }
+
+        #register {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #352c2c;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            height: 50px;
+            width: 250px;
+        }
+
+        .centered-container {
+            /*display: flex;*/
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            /*height: 100vh; /* or any other height */
+        }
+
+        #register:hover {
+            background-color: #726a6a;
+        }
+
+        .links {
+            
+            color: #fff;
+
+        }
+
+        .links a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+
+
+        a:hover{
+            color: black;
+        }
+
+        @media screen and (max-width: 768px) {
+            .register-container {
+                width: 90%;
+                margin: 20% auto;
+                height: 90%;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .register-container {
+                width: 95%;
+                margin: 30% auto;
+            }
+
+            input[type="submit"] {
+                height: 40px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="register-container">
+		<h1>Register</h1>
+			<label for="username">Username:</label>
+			<input type="text" id="username" name="username" required placeholder="John234">
+            <br>
+
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password" required>
+
+            <br>
+
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" id="confirm-password" name="confirm-password" required>
+            <br>
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <br>
+
+            <label for="surname">Surname:</label>
+            <input type="text" id="surname" name="surname" required>
+            <br>
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required>
+            <br>
+            <br>
+
+            <div class="centered-container">
+                <button value="Register" id="register">Register</button>
+                <br><br><br>
+                <a href="login.html" class="links">Already have an account? Login here</a>
+                <br>
+            </div>
+	</div>
+
+    <script>
+        // Get a reference to the button element
+        const button = document.getElementById('register');
+
+        // Attach an event listener to the button
+        button.addEventListener('click', () => {
+        // Create a new XMLHttpRequest object
+        const xhr = new XMLHttpRequest();
+
+        // Set the request URL and method
+        xhr.open('POST', 'http://172.16.3.32:2023');
+
+        // Set the request header
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        // Set the callback function for when the request is complete
+        xhr.onload = () => {
+            // Check the status code
+            if (xhr.status === 200) {
+            // Success, do something with the response
+            //console.log(xhr.response);
+            var d = JSON.parse(xhr.response);
+                console.log(d.message);
+            console.log(d);
+            } else {
+            // Error, handle it appropriately
+            console.error(xhr.statusText);
+            }
+        };
+
+        const usernameInput = document.getElementById("username");
+        const password = document.getElementById("password");
+        const Firstname = document.getElementById("name");
+        const surname= document.getElementById("surname");
+        const dob = document.getElementById("dob");
+        
+
+        // Create an object to represent the user data
+        const data = {
+            username: usernameInput.value,
+            password: password.value,
+            name: Firstname.value,
+            surname: surname.value,
+            date_Of_Birth: dob.value
+        };
+
+        // Send the request
+        xhr.send(JSON.stringify(data));
+        });
+
+    </script>
+</body>
+</html>
